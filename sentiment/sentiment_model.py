@@ -127,16 +127,10 @@ def engine(query = " " , senderid = '', senderName = '' , x_test=x_test):#, x_te
     #print 'prediction---', int(all_predictions)
     if int(all_predictions[0]) == 1:
         print 'Positive'
-        column = ['Time_Stamp','Sender_name','Comment','Sentiment']
-        data =   [str(datetime.now()), senderName, query, 'Positive']
-        dumpData('/root/Chatbot/dump/', 'Sears_senti_dump.csv', column, data)
-        return      {'Name':  senderName,'Sentiment' : 'Positive' , 'Response' : 'Thank you for your valuable feedback! \n \nIt will help us to serve better in future.\n\nKindly provide us with the following details: \n1. Phone Number \n2. Email Id \n3. Communication Address. \n'}
+        return      {'Name':  senderName,'Sentiment' : 'Positive' , 'Response' : 'Thank you for your valuable feedback! \n \nIt will help us to serve better in future.\n'}
     elif int(all_predictions[0]) == 0:
         print 'Negative'
-        column = ['Time_Stamp','Sender_name','Comment','Sentiment']
-        data =   [str(datetime.now()),senderName,query,'Negative']
-        dumpData('/root/Chatbot/dump/', 'Sears_senti_dump.csv', column, data) 
-        return     {'Name':  senderName,'Sentiment' : 'Negative' , 'Response' : 'We are really sorry for the bad experience with our product.\n \nKindly provide us with the following details: \n \n 1. Phone Number \n 2. Email Id \n 3. Communication Address.\n\nOur service representative shall contact you soon with more details.\n\nPlease do not hesitate to ask me, if you have any questions. '}
+        return     {'Name':  senderName,'Sentiment' : 'Negative' , 'Response' : 'We are really sorry for the bad experience with our product.\n   '}
     else :
         print 'Unidentified'
         return     {'Name':  senderName,'Sentiment' : 'Unidentified'}
