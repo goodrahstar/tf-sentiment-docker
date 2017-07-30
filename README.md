@@ -1,4 +1,4 @@
-# Sentiment Analysis using Convonutional Neural Network using Tensorflow
+# Sentiment Analysis (Convonutional Neural Network model) using Tensorflow
 
 ## Docker Setup
 0. Install [Docker](https://docs.docker.com/engine/installation/)
