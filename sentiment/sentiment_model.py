@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb 20 11:51:16 2017
-
 @author: Rahul.kumar
 """
 
@@ -27,7 +25,7 @@ vocab_file =  "./vocab1487512553.json"
 # Misc Parameters
 allow_soft_placement = True
 log_device_placement =  False
-#query = "How many Mass Addition lines are currently present?"
+
 
 
 # Load data. Load your own data here
@@ -36,22 +34,6 @@ print("Loading data...")
 #    eval=True, vocab_file=vocab_file,
 #    cat1="./data/sentiment.positive", cat2="./data/sentiment.negative")
 
-def dumpData(file_path, file_name, column, new_data):
-#    new_data = [(searchme),(urls),(titles),api]
-    datasetExist = False
-    if os.path.exists(os.path.join(file_path, file_name)):
-        datasetExist = True
-        
-    if not datasetExist:
-        print 'Dump file not found: Creating dump file'
-        pd.DataFrame(columns = column).to_csv(os.path.join(file_path, file_name) , index =False)
-        
-    data = pd.read_csv(file_path + file_name)
-    new_df = pd.DataFrame([new_data], columns=list(data.columns))
-
-    data = data.append(new_df,ignore_index=True)
-    data.to_csv(file_path + file_name, index =False)
-    print '---->Dumping Succesful'
     
 x_test, y_test, vocabulary, vocabulary_inv = data_helpers.load_data(
 eval=True, vocab_file=vocab_file,cat1= "./data/sentiment.positive", cat2= "./data/sentiment.negative")
@@ -61,8 +43,7 @@ eval=True, vocab_file=vocab_file,cat1= "./data/sentiment.positive", cat2= "./dat
 #checkpoint_file = tf.train.latest_checkpoint(checkpoint_dir)
 checkpoint_file = "./runs/1487512553/checkpoints/model-18200"
 #print("checkpoint file: {}".format(checkpoint_file))
-#graph = tf.Graph()
-#with graph.as_default():
+
 session_conf = tf.ConfigProto(
     allow_soft_placement=allow_soft_placement,
     log_device_placement=log_device_placement)
@@ -81,7 +62,7 @@ dropout_keep_prob = tf.get_default_graph().get_operation_by_name("dropout_keep_p
 predictions = tf.get_default_graph().get_operation_by_name("output/predictions").outputs[0]
                                                   
 
-def engine(query = " " , senderid = '', senderName = '' , x_test=x_test):#, x_test,y_test,vocabulary,vocabulary_inv):    
+def engine(query = " " , senderid = '', senderName = '' , x_test=x_test):    
 
     query = query
     new_question = query.strip()
@@ -97,16 +78,11 @@ def engine(query = " " , senderid = '', senderName = '' , x_test=x_test):#, x_te
         if 'product' in word or 'products' in word:
             new_question[new_question.index(word)] = "<PAD/>"
             
-    #print new_question
+    
                   
     x = np.array([vocabulary[word] for word in new_question])
     x_test = np.array([x])
-        
-    
-#    y_test = np.argmax(y_test, axis=1)
-    #print("Vocabulary size: {:d}".format(len(vocabulary)))
-    #print("Test set size {:d}".format(len(y_test)))
-    
+            
     #print("\nEvaluating...\n")
     
     
