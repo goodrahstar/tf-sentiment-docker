@@ -75,10 +75,6 @@ def engine(query = " " , senderid = '', senderName = '' , x_test=x_test):
     for word in new_question:
         if not vocabulary.has_key(word):
             new_question[new_question.index(word)] = "<PAD/>"
-        if 'product' in word or 'products' in word:
-            new_question[new_question.index(word)] = "<PAD/>"
-            
-    
                   
     x = np.array([vocabulary[word] for word in new_question])
     x_test = np.array([x])
